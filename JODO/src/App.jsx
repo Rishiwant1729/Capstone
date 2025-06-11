@@ -1,12 +1,13 @@
 import React from 'react'
-import Home from './pages/hom'
+import SocialApp from './Social'
+
 
 function App() {
 
 
   return (
     <>
-      <Home />
+      <SocialApp />
     </>
   )
 }
