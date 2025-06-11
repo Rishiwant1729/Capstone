@@ -1,5 +1,5 @@
 import React from 'react'
-import SocialApp from './Social'
+
 
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <SocialApp />
+      <h1>Kaam Shuru</h1>
     </>
   )
 }
