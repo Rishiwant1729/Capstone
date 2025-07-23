@@ -68,7 +68,7 @@ export const getPosts = async () => {
   };
   
   // Create a new post
-  export const createPost = async (title, description, imageUrl, userId, userName, slug) => {
+  export const createPost = async (title, description, imageUrl, userId, userName, slug, mediaType) => {
     try {
       const user = await getCurrentUser();
       if (!user) {
@@ -87,6 +87,7 @@ export const getPosts = async () => {
           userName: user.name,
           slug,
           likes: 0,
+          mediaType,
         }
       );
       return response;
@@ -108,6 +109,35 @@ export const getPosts = async () => {
       );
     } catch (error) {
       console.error("Like Post Error:", error.message);
+    }
+  };
+
+  // Update a post by ID
+  export const updatePost = async (postId, { title, description, imageUrl, mediaType }) => {
+    try {
+      return await databases.updateDocument(
+        "687fb7e9001aa53e0e28",
+        "687fb7f8002b2e0613bf",
+        postId,
+        { title, description, imageUrl, mediaType }
+      );
+    } catch (error) {
+      console.error("Update Post Error:", error.message);
+      throw error;
+    }
+  };
+
+  // Delete a post by ID
+  export const deletePost = async (postId) => {
+    try {
+      return await databases.deleteDocument(
+        "687fb7e9001aa53e0e28",
+        "687fb7f8002b2e0613bf",
+        postId
+      );
+    } catch (error) {
+      console.error("Delete Post Error:", error.message);
+      throw error;
     }
   };
 

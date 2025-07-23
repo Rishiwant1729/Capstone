@@ -52,9 +52,9 @@ export default function Profile() {
         </div>
       </div>
       {/* Applied Jobs List (right side on large screens) */}
-      <div className="hidden lg:block ml-12 w-96 mr-16 flex-shrink-0 mt-8">
+      <div className="hidden lg:block ml-1 w-96 mr-16 flex-shrink-0 mt-8">
         <div className="bg-[#16181c] rounded-2xl p-6 shadow border border-[#222] sticky top-8 pt-0 min-h-[420px]">
-          <div className="text-base font-bold text-white mb-4">Applied Jobs</div>
+          <div className="text-2xl font-bold text-white mb-4">Applied Jobs</div>
           {appliedJobs.length === 0 ? (
             <p className="text-gray-400">No jobs applied yet.</p>
           ) : (
