@@ -1,10 +1,17 @@
 import { Client, Account, Databases, Storage, Query } from "appwrite";
 
+// Use environment variables for all IDs and URLs
+const APPWRITE_ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
+const APPWRITE_PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const APPWRITE_DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const APPWRITE_COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+const APPWRITE_BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
+
 const client = new Client();
 
 client
-  .setEndpoint("https://syd.cloud.appwrite.io/v1") // Appwrite endpoint
-  .setProject("687fb6b2001dc0af4af5"); // Replace with your Project ID
+  .setEndpoint(APPWRITE_ENDPOINT)
+  .setProject(APPWRITE_PROJECT_ID);
 
 export const account = new Account(client);
 export const databases = new Databases(client);
@@ -58,8 +65,8 @@ export const signup = async (email, password, name) => {
 export const getPosts = async () => {
     try {
       return await databases.listDocuments(
-        "687fb7e9001aa53e0e28",    // Database ID
-        "687fb7f8002b2e0613bf"          // Collection ID
+        APPWRITE_DATABASE_ID,    // Database ID
+        APPWRITE_COLLECTION_ID          // Collection ID
       );
     } catch (error) {
       console.error("Get Posts Error:", error.message);
@@ -76,8 +83,8 @@ export const getPosts = async () => {
       }
   
       const response = await databases.createDocument(
-        "687fb7e9001aa53e0e28", // Database ID
-        "687fb7f8002b2e0613bf", // Collection ID
+        APPWRITE_DATABASE_ID, // Database ID
+        APPWRITE_COLLECTION_ID, // Collection ID
         "unique()", // Document ID
         {
           title,
@@ -102,8 +109,8 @@ export const getPosts = async () => {
   export const likePost = async (postId, currentLikes) => {
     try {
       return await databases.updateDocument(
-        "687fb7e9001aa53e0e28",
-        "687fb7f8002b2e0613bf",
+        APPWRITE_DATABASE_ID,
+        APPWRITE_COLLECTION_ID,
         postId,
         { likes: currentLikes + 1 }
       );
@@ -116,8 +123,8 @@ export const getPosts = async () => {
   export const updatePost = async (postId, { title, description, imageUrl, mediaType }) => {
     try {
       return await databases.updateDocument(
-        "687fb7e9001aa53e0e28",
-        "687fb7f8002b2e0613bf",
+        APPWRITE_DATABASE_ID,
+        APPWRITE_COLLECTION_ID,
         postId,
         { title, description, imageUrl, mediaType }
       );
@@ -131,8 +138,8 @@ export const getPosts = async () => {
   export const deletePost = async (postId) => {
     try {
       return await databases.deleteDocument(
-        "687fb7e9001aa53e0e28",
-        "687fb7f8002b2e0613bf",
+        APPWRITE_DATABASE_ID,
+        APPWRITE_COLLECTION_ID,
         postId
       );
     } catch (error) {
@@ -145,7 +152,7 @@ export const getPosts = async () => {
   export const uploadImage = async (file) => {
     try {
       const uploadedFile = await storage.createFile(
-        "687fb9ce002f64f749f1",
+        APPWRITE_BUCKET_ID,
         "unique()",
         file
       );
@@ -169,7 +176,7 @@ export const applyForJob = async (jobTitle, company, userId) => {
   try {
     // Check if this job already exists for this user
     const existing = await databases.listDocuments(
-      "687fb7e9001aa53e0e28", // Database ID
+      APPWRITE_DATABASE_ID, // Database ID
       "687fb93d001fd189f191", // appliedJobs Collection ID
       [
         Query.equal("userId", userId),
@@ -183,7 +190,7 @@ export const applyForJob = async (jobTitle, company, userId) => {
 
     // Add new application
     await databases.createDocument(
-      "687fb7e9001aa53e0e28",
+      APPWRITE_DATABASE_ID,
       "687fb93d001fd189f191",
       "unique()",
       { jobTitle, company, userId }
@@ -203,7 +210,7 @@ export const applyForJob = async (jobTitle, company, userId) => {
   export const getAppliedJobs = async (userId) => {
     try {
       return await databases.listDocuments(
-        "687fb7e9001aa53e0e28", // Database ID
+        APPWRITE_DATABASE_ID, // Database ID
         "687fb93d001fd189f191", // Collection ID
         [Query.equal("userId", userId)]
       );
