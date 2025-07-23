@@ -25,7 +25,7 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-800 p-4 flex justify-between items-center text-white">
       <div className="text-xl font-bold">LinkedIn Clone</div>
-      <div className="space-x-4">
+      <div className="flex items-center space-x-4">
         <Link to="/">Home</Link>
         <Link to="/create-post">Create Post</Link>
         <Link to="/jobs">Jobs</Link>
@@ -37,12 +37,19 @@ export default function Navbar() {
             <Link to="/signup">Sign Up</Link>
           </>
         ) : (
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 px-2 py-1 rounded"
-          >
-            Logout
-          </button>
+          <div className="flex items-center space-x-3">
+            <img
+              src={user.profileImageUrl || "/avatar.png"}
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover border border-gray-300"
+            />
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 px-2 py-1 rounded hover:bg-red-600"
+            >
+              Logout
+            </button>
+          </div>
         )}
       </div>
     </nav>

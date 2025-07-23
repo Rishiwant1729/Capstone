@@ -28,9 +28,17 @@ export default function Profile() {
       
       {/* Left Section: User Info */}
       <div className="bg-white p-4 shadow rounded col-span-2">
-        <h1 className="text-3xl font-bold mb-4">Profile</h1>
-        <p className="text-lg"><strong>Name:</strong> {user.name}</p>
-        <p className="text-lg"><strong>Email:</strong> {user.email}</p>
+        <div className="flex items-center space-x-4 mb-4">
+          <img
+            src={user.profileImageUrl || "/avatar.png"}
+            alt="Profile"
+            className="w-24 h-24 rounded-full object-cover border"
+          />
+          <div>
+            <h1 className="text-3xl font-bold">{user.name}</h1>
+            <p className="text-lg">{user.email}</p>
+          </div>
+        </div>
         <p className="text-lg mt-4">
           <strong>Jobs Applied:</strong> {appliedJobs.length}
         </p>
@@ -55,3 +63,4 @@ export default function Profile() {
     </div>
   );
 }
+
