@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Sidebar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -10,9 +10,10 @@ import CreatePost from "./pages/CreatePost";
 
 export default function App() {
   return (
-    <Router>
-      <Navbar />
-      <div className="bg-gray-100 min-h-screen">
+    <div className="flex">
+      <Sidebar />
+      <div className="w-px h-screen bg-white opacity-50 sticky top-0" style={{ minWidth: '0.5px' }} />
+      <div className="flex-1 bg-gray-100 min-h-screen ml-64">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
@@ -22,6 +23,6 @@ export default function App() {
           <Route path="/create-post" element={<CreatePost />} />
         </Routes>
       </div>
-    </Router>
+    </div>
   );
 }

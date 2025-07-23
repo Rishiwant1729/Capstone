@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { applyForJob, getAppliedJobs } from "../api/appwrite";
 import { getCurrentUser } from "../api/appwrite";
+import { AiOutlineRocket } from "react-icons/ai";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [appliedJobs, setAppliedJobs] = useState([]); // store job titles user applied
   const [user, setUser] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 5;
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -48,33 +51,88 @@ export default function Jobs() {
     }
   };
 
-  return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">Jobs</h1>
-      {jobs.length === 0 ? (
-        <p className="text-center">No jobs available.</p>
-      ) : (
-        jobs.map((job) => (
-          <div key={job.id} className="bg-white p-4 mb-4 shadow rounded">
-            <h2 className="text-xl font-bold">{job.title}</h2>
-            <p className="text-gray-700 mb-2">{job.description}</p>
-            <p className="text-sm text-gray-500">Company: {job.company}</p>
-            <p className="text-sm text-gray-500">Location: {job.location}</p>
+  // Pagination logic
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  const totalPages = Math.ceil(jobs.length / jobsPerPage);
 
-            <button
-              onClick={() => handleApply(job)}
-              disabled={appliedJobs.includes(job.title)}
-              className={`mt-2 px-3 py-1 rounded ${
-                appliedJobs.includes(job.title)
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-500 text-white"
-              }`}
-            >
-              {appliedJobs.includes(job.title) ? "Applied" : "Apply"}
-            </button>
+  const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+
+  const SUGGESTED_TECH_JOBS = [
+    "Frontend Developer at Google",
+    "Backend Engineer at Amazon",
+    "Full Stack Dev at Microsoft",
+    "DevOps Engineer at Netflix",
+    "Data Scientist at Facebook",
+    "AI Engineer at OpenAI",
+    "Cloud Architect at IBM",
+  ];
+
+  return (
+    <div className="flex justify-center bg-black min-h-screen py-8">
+      <div className="w-full max-w-2xl">
+        {jobs.length === 0 ? (
+          <p className="text-center text-white">No jobs available.</p>
+        ) : (
+          <>
+            {currentJobs.map((job) => (
+              <div key={job.id} className="bg-[#16181c] text-white rounded-2xl border border-[#222] shadow p-4 mb-4 min-h-[160px] w-full">
+                <h2 className="text-lg font-bold mb-2">{job.title}</h2>
+                <p className="mb-2 text-gray-300 text-base">{job.description}</p>
+                <p className="text-xs text-gray-400 mb-0.5">Company: {job.company}</p>
+                <p className="text-xs text-gray-400 mb-2">Location: {job.location}</p>
+
+                <button
+                  onClick={() => handleApply(job)}
+                  disabled={appliedJobs.includes(job.title)}
+                  className={`mt-2 px-4 py-2 rounded font-semibold transition-colors duration-200 w-full
+                    ${appliedJobs.includes(job.title)
+                      ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                      : "bg-blue-500 hover:bg-blue-600 text-white"}
+                  `}
+                >
+                  {appliedJobs.includes(job.title) ? "Applied" : "Apply"}
+                </button>
+              </div>
+            ))}
+            <div className="flex justify-center items-center space-x-4 mt-6">
+              <button
+                onClick={handlePrev}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="text-lg font-semibold text-white">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+      {/* Right sidebar: Suggested for you */}
+      <div className="hidden lg:block ml-16 w-96">
+        <div className="bg-[#16181c] rounded-xl p-8 shadow border border-[#222] mt-2 sticky top-8">
+          <div className="text-base font-bold text-white mb-4">Suggested for you</div>
+          <div className="space-y-4">
+            {SUGGESTED_TECH_JOBS.map((job, idx) => (
+              <div key={idx} className="flex items-center bg-[#23272f] rounded-lg px-4 py-3 border border-[#222] text-gray-200">
+                <AiOutlineRocket className="mr-3 text-blue-400" size={22} />
+                <span className="text-base font-medium">{job}</span>
+              </div>
+            ))}
           </div>
-        ))
-      )}
+        </div>
+      </div>
     </div>
   );
 }
