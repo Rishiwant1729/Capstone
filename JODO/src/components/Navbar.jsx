@@ -23,15 +23,20 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
     navigate("/signin");
   };
 
+  // Responsive transform: only slide on mobile
+  const sidebarStyle = {
+    ...(window.innerWidth < 640
+      ? { transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)' }
+      : { transform: 'none' }),
+  };
+
   return (
     <aside
       className={`bg-black text-white h-screen w-64 flex-col justify-between fixed left-0 top-0 p-6 z-50
         ${mobileOpen ? 'flex' : 'hidden'} sm:flex
         transition-transform duration-300
       `}
-      style={{
-        transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)',
-      }}
+      style={sidebarStyle}
     >
       {/* Mobile close button */}
       <div className="sm:hidden flex justify-end mb-6">

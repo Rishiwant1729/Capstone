@@ -23,7 +23,7 @@ export default function App() {
       </div>
       {/* Sidebar: always on desktop, toggled on mobile */}
       <Sidebar mobileOpen={sidebarOpen} setMobileOpen={setSidebarOpen} />
-      <div className="w-px h-screen bg-white opacity-50 sticky top-0 hidden sm:block" style={{ minWidth: '0.5px' }} />
+      <div className="w-px h-screen bg-white opacity-50 sticky top-0 hidden sm:block z-40" style={{ minWidth: '0.5px' }} />
       <div className="flex-1 bg-gray-100 min-h-screen ml-0 sm:ml-64 pt-14 sm:pt-0">
         <Routes>
           <Route path="/" element={<Home />} />
