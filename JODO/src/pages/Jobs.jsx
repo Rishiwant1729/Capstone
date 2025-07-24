@@ -71,14 +71,14 @@ export default function Jobs() {
   ];
 
   return (
-    <div className="flex justify-center bg-black min-h-screen py-8">
-      <div className="w-full max-w-2xl">
+    <div className="flex justify-center bg-black min-h-screen py-8 px-2">
+      <div className="w-full max-w-2xl px-0 sm:px-4">
         {jobs.length === 0 ? (
           <p className="text-center text-white">No jobs available.</p>
         ) : (
           <>
             {currentJobs.map((job) => (
-              <div key={job.id} className="bg-[#16181c] text-white rounded-2xl border border-[#222] shadow p-4 mb-4 min-h-[160px] w-full">
+              <div key={job.id} className="bg-[#16181c] text-white rounded-2xl border border-[#222] shadow p-3 sm:p-4 mb-4 min-h-[160px] w-full">
                 <h2 className="text-lg font-bold mb-2">{job.title}</h2>
                 <p className="mb-2 text-gray-300 text-base">{job.description}</p>
                 <p className="text-xs text-gray-400 mb-0.5">Company: {job.company}</p>

@@ -130,7 +130,7 @@ export default function Home() {
   return (
     <div className="flex justify-center bg-black min-h-screen py-8">
       {/* Feed area */}
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-2xl px-2 sm:px-4">
         {posts.length === 0 ? (
           <p className="text-center text-white">No posts yet.</p>
         ) : (
@@ -225,7 +225,7 @@ export default function Home() {
           <div className="text-2xl font-bold text-white mb-4">Suggested for you</div>
           <div className="space-y-4">
             {SUGGESTED_USERS.map((user) => (
-              <div key={user.username} className="flex items-center bg-[#23272f] rounded-lg px-4 py-3 border border-[#222] text-gray-200">
+              <div key={user.username} className="flex items-center bg-[#23272f] rounded-lg px-4 py-3 border border-[#222] text-gray-200 w-full">
                 <img src={user.avatar} alt={user.username} className="w-10 h-10 rounded-full object-cover border-2 border-white mr-3" />
                 <div>
                   <div className="font-semibold text-sm text-white">{user.username}</div>

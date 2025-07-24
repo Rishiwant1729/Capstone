@@ -3,7 +3,7 @@ import { logout, getCurrentUser } from "../api/appwrite";
 import { useEffect, useState } from "react";
 import { AiFillHome, AiOutlineUser, AiOutlineLogout, AiOutlinePlusCircle, AiOutlineAppstore } from "react-icons/ai";
 
-export default function Sidebar() {
+export default function Sidebar({ mobileOpen, setMobileOpen }) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -24,7 +24,21 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="bg-black text-white h-screen w-64 flex flex-col justify-between fixed left-0 top-0 p-6">
+    <aside
+      className={`bg-black text-white h-screen w-64 flex-col justify-between fixed left-0 top-0 p-6 z-50
+        ${mobileOpen ? 'flex' : 'hidden'} sm:flex
+        transition-transform duration-300
+      `}
+      style={{
+        transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)',
+      }}
+    >
+      {/* Mobile close button */}
+      <div className="sm:hidden flex justify-end mb-6">
+        <button onClick={() => setMobileOpen(false)} className="text-white text-2xl focus:outline-none">
+          &times;
+        </button>
+      </div>
       <div>
         <div className="flex items-center text-2xl font-bold mb-10">
           <span className="mr-3">
@@ -50,11 +64,15 @@ export default function Sidebar() {
             <AiOutlineUser size={24} />
             <span>Profile</span>
           </Link>
-          {user && (
+          {user ? (
             <button onClick={handleLogout} className="flex items-center space-x-3 text-lg hover:text-red-400 bg-transparent border-none outline-none">
               <AiOutlineLogout size={24} />
               <span>Logout</span>
             </button>
+          ) : (
+            <Link to="/signin" className="flex items-center space-x-3 text-lg hover:text-blue-400">
+              <span>Sign In</span>
+            </Link>
           )}
         </nav>
       </div>

@@ -23,9 +23,9 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex justify-center items-start min-h-screen bg-black py-20 px-2">
+    <div className="flex flex-col items-center min-h-screen w-full bg-black px-2 py-8">
       {/* Profile Card */}
-      <div className="bg-[#16181c] rounded-2xl shadow-lg p-12 flex flex-col items-center w-full max-w-lg mx-auto mt-8">
+      <div className="bg-[#16181c] rounded-2xl shadow-lg p-6 sm:p-12 flex flex-col items-center w-full max-w-md mx-auto">
         <img
           src={user.profileImageUrl || "/avatar.png"}
           alt="Profile"
