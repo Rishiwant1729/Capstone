@@ -119,7 +119,7 @@ export default function Jobs() {
           </>
         )}
       </div>
-      {/* Right sidebar: Suggested for you */}
+    {/* Right sidebar: Suggested for you */}
       <div className="hidden lg:block ml-16 w-96">
         <div className="bg-[#16181c] rounded-xl p-8 shadow border border-[#222] mt-2 sticky top-8">
           <div className="text-base font-bold text-white mb-4">Suggested for you</div>

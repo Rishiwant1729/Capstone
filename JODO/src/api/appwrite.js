@@ -211,7 +211,7 @@ export const applyForJob = async (jobTitle, company, userId) => {
     try {
       return await databases.listDocuments(
         APPWRITE_DATABASE_ID, // Database ID
-        "687fb93d001fd189f191", // Collection ID
+        APPWRITE_COLLECTION_ID, // Collection ID
         [Query.equal("userId", userId)]
       );
     } catch (error) {

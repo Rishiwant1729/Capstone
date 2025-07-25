@@ -44,13 +44,13 @@ function PostImage({ src, alt, mediaType }) {
     containerHeight = 500;
     containerWidth = 320;
   } else if (aspectRatio > 1.2) {
-    containerHeight = 500; // portrait
+    containerHeight = 500; //? portrait
     containerWidth = 260;
   } else if (aspectRatio < 0.8) {
-    containerHeight = 220; // landscape
+    containerHeight = 220; //? landscape
     containerWidth = 420;
   } else {
-    containerHeight = 320; // square/normal
+    containerHeight = 320; //? square/normal
     containerWidth = 320;
   }
   return (
@@ -80,9 +80,9 @@ function PostImage({ src, alt, mediaType }) {
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const [expanded, setExpanded] = useState({}); // Track which posts are expanded
+  const [expanded, setExpanded] = useState({}); 
   const [currentUser, setCurrentUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState({}); // Track which post's menu is open
+  const [menuOpen, setMenuOpen] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -202,11 +202,11 @@ export default function Home() {
                     )}
                   </div>
                 </div>
-                {/* Post image */}
+                 {/* Post image */}
                 {post.imageUrl && (
                   <PostImage src={post.imageUrl} alt={post.title} mediaType={post.mediaType} />
                 )}
-                {/* Action icons */}
+                 {/* Action icons */}
                 <div className="flex items-center justify-between px-5 py-3 border-t border-[#222] mt-2 text-gray-400 text-lg">
                   <div className="flex items-center">
                     <button onClick={() => handleLike(post.$id, post.likes)} className="flex items-center cursor-pointer focus:outline-none">
@@ -219,7 +219,7 @@ export default function Home() {
           })
         )}
       </div>
-      {/* Right sidebar: Suggested for you */}
+     {/* Right sidebar: Suggested for you */}
       <div className="hidden lg:block ml-8 w-96">
         <div className="bg-[#16181c] rounded-xl p-8 shadow border border-[#222] mt-2 sticky top-8 min-h-[400px]">
           <div className="text-2xl font-bold text-white mb-4">Suggested for you</div>
